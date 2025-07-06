@@ -19,6 +19,9 @@ const images = [
 ];
 const ProductCarousel = ({ onChange }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [showCursor, setShowCursor] = useState(false);
+  const [cursorPos, setCursorPos] = useState({ x: 0, y: 0 });
+
   const startX = useRef(null);
   const handleDragStart = (e) => {
     startX.current = e.touches ? e.touches[0].clientX : e.clientX;
@@ -45,17 +48,15 @@ const ProductCarousel = ({ onChange }) => {
   };
   return (
     <div className="w-full  flex items-center justify-center relative px-4">
-      
       {/* Flex Container with large fixed width */}
       <div className="flex items-center justify-center gap-[100px]">
-        
         {/* Left Image */}
         <img
           src={getImageByOffset(-1).image}
           alt="left"
           className="w-[435px] h-[619px] object-cover flex-shrink-0 hidden md:block"
           style={{
-            transform: "rotate(-15deg)",
+            transform: "rotate(-15deg) translateY(10px)",
             transformOrigin: "bottom right",
           }}
           draggable={false}
@@ -70,13 +71,43 @@ const ProductCarousel = ({ onChange }) => {
           onTouchStart={handleDragStart}
           onTouchEnd={handleDragEnd}
           draggable={false}
+          onMouseEnter={() => setShowCursor(true)}
+          onMouseLeave={() => setShowCursor(false)}
+          onMouseMove={(e) => {
+            const rect = e.currentTarget.getBoundingClientRect();
+            setCursorPos({
+              x: e.clientX - rect.left,
+              y: e.clientY - rect.top,
+            });
+          }}
+          style={{ cursor: "none" }} // hide default cursor
         />
+        {showCursor && (
+          <div
+            className="absolute pointer-events-none z-20"
+            style={{
+              top: `calc(50% - 309.5px)`, // Half height of image to align
+              left: `calc(50% - 217.5px)`, // Half width of image to align
+              transform: `translate(${cursorPos.x - 40}px, ${
+                cursorPos.y - 40
+              }px)`,
+            }}
+          >
+            <div className="w-16 h-16 rounded-full bg-black/40 backdrop-blur-sm flex items-center justify-center text-white text-[12px] font-medium select-none">
+              Drag
+            </div>
+          </div>
+        )}
+
         {/* Right Image */}
         <img
           src={getImageByOffset(1).image}
           alt="right"
           className="w-[435px] h-[619px] object-cover flex-shrink-0 hidden md:block"
-          style={{ transform: "rotate(15deg)", transformOrigin: "bottom left" }}
+          style={{
+            transform: "rotate(15deg) translateY(10px)",
+            transformOrigin: "bottom left",
+          }}
           draggable={false}
         />
       </div>

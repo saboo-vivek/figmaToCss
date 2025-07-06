@@ -33,8 +33,8 @@ const Navbar = () => {
   const navItems = ["About", "News", "Services", "Our Team", "Make Enquiry"];
 
   return (
-    <nav className="absolute top-[10px] left-[10px] right-[10px] z-10">
-      <div className="bg-white flex items-center justify-between px-4 py-3 shadow-md">
+    <nav className="absolute top-[10px] left-[10px] right-[10px] z-10 ">
+      <div className="bg-white flex items-center justify-between px-8 py-4 shadow-md">
         {/* 👇 Mobile Contact Us Button - left side */}
         <button className="flex md:hidden border border-black px-4 py-2 text-sm items-center gap-2 hover:bg-black hover:text-white transition rounded-none">
           Contact us
