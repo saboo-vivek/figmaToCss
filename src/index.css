@@ -1,0 +1,101 @@
+@import url("https://fonts.googleapis.com/css2?family=Work+Sans&display=swap");
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Work Sans", sans-serif;
+}
+
+@keyframes heroReveal {
+  0% {
+    clip-path: inset(50% 0 50% 0);
+    opacity: 1;
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+    opacity: 1;
+  }
+}
+
+.reveal-image {
+  animation: heroReveal 2s ease-in-out forwards;
+}
+
+/* Thumbnail Border Trace */
+.border-trace {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 10;
+}
+.border-trace div {
+  position: absolute;
+  background-color: white;
+  opacity: 1;
+}
+.border-top {
+  height: 2.5px;
+  width: 0%;
+  top: 0;
+  left: 0;
+  animation: draw-top 1.25s linear forwards;
+}
+.border-right {
+  width: 2.5px;
+  height: 0%;
+  top: 0;
+  right: 0;
+  animation: draw-right 1.25s linear forwards 1.25s;
+}
+.border-bottom {
+  height: 2.5px;
+  width: 0%;
+  bottom: 0;
+  right: 0;
+  animation: draw-bottom 1.25s linear forwards 2.5s;
+}
+.border-left {
+  width: 2.5px;
+  height: 0%;
+  bottom: 0;
+  left: 0;
+  animation: draw-left 1.25s linear forwards 3.75s;
+}
+@keyframes draw-top {
+  to {
+    width: 100%;
+  }
+}
+@keyframes draw-right {
+  to {
+    height: 100%;
+  }
+}
+@keyframes draw-bottom {
+  to {
+    width: 100%;
+  }
+}
+@keyframes draw-left {
+  to {
+    height: 100%;
+  }
+}
+
+
+@keyframes revealFromMiddle {
+  0% {
+    clip-path: inset(50% 0 50% 0);
+  }
+  100% {
+    clip-path: inset(0 0 0 0);
+  }
+}
+
+.reveal-image {
+  animation: revealFromMiddle 1.5s ease-in-out forwards;
+  clip-path: inset(50% 0 50% 0);
+  z-index: 10;
+}
